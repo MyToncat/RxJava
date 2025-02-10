@@ -7475,8 +7475,10 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
     }
 
     /**
-     * Returns a {@code Flowable} that emits the items emitted by the current {@code Flowable}, converted to the specified
-     * type.
+     * Returns a {@code Flowable} that emits the upstream items while
+     * they can be cast via {@link Class#cast(Object)} until the upstream terminates,
+     * or until the upstream signals an item which can't be cast,
+     * resulting in a {@link ClassCastException} to be signaled to the downstream.
      * <p>
      * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/cast.v3.png" alt="">
      * <dl>
@@ -7489,8 +7491,7 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
      *
      * @param <U> the output value type cast to
      * @param clazz
-     *            the target class type that {@code cast} will cast the items emitted by the current {@code Flowable}
-     *            into before emitting them from the resulting {@code Flowable}
+     *            the target class to use to try and cast the upstream items into
      * @return the new {@code Flowable} instance
      * @throws NullPointerException if {@code clazz} is {@code null}
      * @see <a href="http://reactivex.io/documentation/operators/map.html">ReactiveX operators documentation: Map</a>
@@ -8265,7 +8266,7 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
      * other succeeds or completes, emits their success value if available or terminates immediately if
      * either this {@code Flowable} or the current inner {@code MaybeSource} fail.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapMaybe.v3.png" alt="">
      * <dl>
      *  <dt><b>Backpressure:</b></dt>
      *  <dd>The operator expects the upstream to support backpressure and honors
@@ -8298,7 +8299,7 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
      * other succeeds or completes, emits their success value if available or terminates immediately if
      * either this {@code Flowable} or the current inner {@code MaybeSource} fail.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapMaybe.v3.png" alt="">
      * <dl>
      *  <dt><b>Backpressure:</b></dt>
      *  <dd>The operator expects the upstream to support backpressure and honors
@@ -8338,7 +8339,7 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
      * other terminates, emits their success value if available and delaying all errors
      * till both this {@code Flowable} and all inner {@code MaybeSource}s terminate.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapMaybeDelayError.v3.png" alt="">
      * <dl>
      *  <dt><b>Backpressure:</b></dt>
      *  <dd>The operator expects the upstream to support backpressure and honors
@@ -8371,7 +8372,7 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
      * other terminates, emits their success value if available and optionally delaying all errors
      * till both this {@code Flowable} and all inner {@code MaybeSource}s terminate.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapMaybeDelayError.v3.png" alt="">
      * <dl>
      *  <dt><b>Backpressure:</b></dt>
      *  <dd>The operator expects the upstream to support backpressure and honors
@@ -8410,7 +8411,7 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
      * other terminates, emits their success value if available and optionally delaying all errors
      * till both this {@code Flowable} and all inner {@code MaybeSource}s terminate.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapMaybeDelayError.v3.png" alt="">
      * <dl>
      *  <dt><b>Backpressure:</b></dt>
      *  <dd>The operator expects the upstream to support backpressure and honors
@@ -8455,7 +8456,7 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
      * other succeeds, emits their success values or terminates immediately if
      * either this {@code Flowable} or the current inner {@code SingleSource} fail.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapSingle.v3.png" alt="">
      * <dl>
      *  <dt><b>Backpressure:</b></dt>
      *  <dd>The operator expects the upstream to support backpressure and honors
@@ -8488,7 +8489,7 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
      * other succeeds, emits their success values or terminates immediately if
      * either this {@code Flowable} or the current inner {@code SingleSource} fail.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapSingle.v3.png" alt="">
      * <dl>
      *  <dt><b>Backpressure:</b></dt>
      *  <dd>The operator expects the upstream to support backpressure and honors
@@ -8528,7 +8529,7 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
      * other succeeds or fails, emits their success values and delays all errors
      * till both this {@code Flowable} and all inner {@code SingleSource}s terminate.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapSingleDelayError.v3.png" alt="">
      * <dl>
      *  <dt><b>Backpressure:</b></dt>
      *  <dd>The operator expects the upstream to support backpressure and honors
@@ -8561,7 +8562,7 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
      * other succeeds or fails, emits their success values and optionally delays all errors
      * till both this {@code Flowable} and all inner {@code SingleSource}s terminate.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapSingleDelayError.v3.png" alt="">
      * <dl>
      *  <dt><b>Backpressure:</b></dt>
      *  <dd>The operator expects the upstream to support backpressure and honors
@@ -8600,7 +8601,7 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
      * other succeeds or fails, emits their success values and optionally delays errors
      * till both this {@code Flowable} and all inner {@code SingleSource}s terminate.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapSingleDelayError.v3.png" alt="">
      * <dl>
      *  <dt><b>Backpressure:</b></dt>
      *  <dd>The operator expects the upstream to support backpressure and honors
@@ -10956,6 +10957,8 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
     /**
      * Maps each element of the upstream {@code Flowable} into {@link MaybeSource}s, subscribes to all of them
      * and merges their {@code onSuccess} values, in no particular order, into a single {@code Flowable} sequence.
+     * <p>
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/flatMapMaybe.v3.png" alt="">
      * <dl>
      *  <dt><b>Backpressure:</b></dt>
      *  <dd>The operator consumes the upstream in an unbounded manner.</dd>
@@ -10979,6 +10982,8 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
      * Maps each element of the upstream {@code Flowable} into {@link MaybeSource}s, subscribes to at most
      * {@code maxConcurrency} {@code MaybeSource}s at a time and merges their {@code onSuccess} values,
      * in no particular order, into a single {@code Flowable} sequence, optionally delaying all errors.
+     * <p>
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/flatMapMaybe.v3.png" alt="">
      * <dl>
      *  <dt><b>Backpressure:</b></dt>
      *  <dd>If {@code maxConcurrency == }{@link Integer#MAX_VALUE} the operator consumes the upstream in an unbounded manner.
@@ -12546,7 +12551,7 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
     @NonNull
     public final Flowable<T> onBackpressureBuffer(int capacity, boolean delayError, boolean unbounded) {
         ObjectHelper.verifyPositive(capacity, "capacity");
-        return RxJavaPlugins.onAssembly(new FlowableOnBackpressureBuffer<>(this, capacity, unbounded, delayError, Functions.EMPTY_ACTION));
+        return RxJavaPlugins.onAssembly(new FlowableOnBackpressureBuffer<>(this, capacity, unbounded, delayError, Functions.EMPTY_ACTION, Functions.emptyConsumer()));
     }
 
     /**
@@ -12577,6 +12582,7 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
      * @throws NullPointerException if {@code onOverflow} is {@code null}
      * @throws IllegalArgumentException if {@code capacity} is non-positive
      * @see <a href="http://reactivex.io/documentation/operators/backpressure.html">ReactiveX operators documentation: backpressure operators</a>
+     * @see #onBackpressureBuffer(int, boolean, boolean, Action, Consumer)
      * @since 1.1.0
      */
     @CheckReturnValue
@@ -12587,7 +12593,51 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
             @NonNull Action onOverflow) {
         Objects.requireNonNull(onOverflow, "onOverflow is null");
         ObjectHelper.verifyPositive(capacity, "capacity");
-        return RxJavaPlugins.onAssembly(new FlowableOnBackpressureBuffer<>(this, capacity, unbounded, delayError, onOverflow));
+        return RxJavaPlugins.onAssembly(new FlowableOnBackpressureBuffer<>(this, capacity, unbounded, delayError, onOverflow, Functions.emptyConsumer()));
+    }
+
+    /**
+     * Buffers an optionally unlimited number of items from the current {@code Flowable} and allows it to emit as fast it can while allowing the
+     * downstream to consume the items at its own place.
+     * If {@code unbounded} is {@code true}, the resulting {@code Flowable} will signal a
+     * {@link MissingBackpressureException} via {@code onError} as soon as the buffer's capacity is exceeded, dropping all undelivered
+     * items, canceling the flow and calling the {@code onOverflow} action.
+     * <p>
+     * <img width="640" height="300" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/bp.obp.buffer.v3.png" alt="">
+     * <dl>
+     *  <dt><b>Backpressure:</b></dt>
+     *  <dd>The operator honors backpressure from downstream and consumes the current {@code Flowable} in an unbounded
+     *  manner (i.e., not applying backpressure to it).</dd>
+     *  <dt><b>Scheduler:</b></dt>
+     *  <dd>{@code onBackpressureBuffer} does not operate by default on a particular {@link Scheduler}.</dd>
+     * </dl>
+     *
+     * @param capacity number of slots available in the buffer.
+     * @param delayError
+     *                if {@code true}, an exception from the current {@code Flowable} is delayed until all buffered elements have been
+     *                consumed by the downstream; if {@code false}, an exception is immediately signaled to the downstream, skipping
+     *                any buffered element
+     * @param unbounded
+     *                if {@code true}, the capacity value is interpreted as the internal "island" size of the unbounded buffer
+     * @param onOverflow action to execute if an item needs to be buffered, but there are no available slots.
+     * @param onDropped the {@link Consumer} to be called with the item that could not be buffered due to capacity constraints.
+     * @return the new {@code Flowable} instance
+     * @throws NullPointerException if {@code onOverflow} or {@code onDropped} is {@code null}
+     * @throws IllegalArgumentException if {@code capacity} is non-positive
+     * @see <a href="http://reactivex.io/documentation/operators/backpressure.html">ReactiveX operators documentation: backpressure operators</a>
+     * @since 3.1.7
+     */
+    @CheckReturnValue
+    @NonNull
+    @BackpressureSupport(BackpressureKind.SPECIAL)
+    @SchedulerSupport(SchedulerSupport.NONE)
+    @Experimental
+    public final Flowable<T> onBackpressureBuffer(int capacity, boolean delayError, boolean unbounded,
+            @NonNull Action onOverflow, @NonNull Consumer<? super T> onDropped) {
+        Objects.requireNonNull(onOverflow, "onOverflow is null");
+        Objects.requireNonNull(onDropped, "onDropped is null");
+        ObjectHelper.verifyPositive(capacity, "capacity");
+        return RxJavaPlugins.onAssembly(new FlowableOnBackpressureBuffer<>(this, capacity, unbounded, delayError, onOverflow, onDropped));
     }
 
     /**
@@ -12653,6 +12703,7 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
      * @throws NullPointerException if {@code onOverflow} or {@code overflowStrategy} is {@code null}
      * @throws IllegalArgumentException if {@code capacity} is non-positive
      * @see <a href="http://reactivex.io/documentation/operators/backpressure.html">ReactiveX operators documentation: backpressure operators</a>
+     * @see #onBackpressureBuffer(long, Action, BackpressureOverflowStrategy)
      * @since 2.0
      */
     @CheckReturnValue
@@ -12662,9 +12713,55 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
     public final Flowable<T> onBackpressureBuffer(long capacity, @Nullable Action onOverflow, @NonNull BackpressureOverflowStrategy overflowStrategy) {
         Objects.requireNonNull(overflowStrategy, "overflowStrategy is null");
         ObjectHelper.verifyPositive(capacity, "capacity");
-        return RxJavaPlugins.onAssembly(new FlowableOnBackpressureBufferStrategy<>(this, capacity, onOverflow, overflowStrategy));
+        return RxJavaPlugins.onAssembly(new FlowableOnBackpressureBufferStrategy<>(this, capacity, onOverflow, overflowStrategy, null));
     }
 
+    /**
+     * Buffers an optionally unlimited number of items from the current {@code Flowable} and allows it to emit as fast it can while allowing the
+     * downstream to consume the items at its own place.
+     * The resulting {@code Flowable} will behave as determined by {@code overflowStrategy} if the buffer capacity is exceeded:
+     * <ul>
+     *     <li>{@link BackpressureOverflowStrategy#ERROR} (default) will call {@code onError} dropping all undelivered items,
+     *     canceling the source, and notifying the producer with {@code onOverflow}. </li>
+     *     <li>{@link BackpressureOverflowStrategy#DROP_LATEST} will drop any new items emitted by the producer while
+     *     the buffer is full, without generating any {@code onError}.  Each drop will, however, invoke {@code onOverflow}
+     *     to signal the overflow to the producer.</li>
+     *     <li>{@link BackpressureOverflowStrategy#DROP_OLDEST} will drop the oldest items in the buffer in order to make
+     *     room for newly emitted ones. Overflow will not generate an {@code onError}, but each drop will invoke
+     *     {@code onOverflow} to signal the overflow to the producer.</li>
+     * </ul>
+     *
+     * <p>
+     * <img width="640" height="300" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/bp.obp.buffer.v3.png" alt="">
+     * <dl>
+     *  <dt><b>Backpressure:</b></dt>
+     *  <dd>The operator honors backpressure from downstream and consumes the current {@code Flowable} in an unbounded
+     *  manner (i.e., not applying backpressure to it).</dd>
+     *  <dt><b>Scheduler:</b></dt>
+     *  <dd>{@code onBackpressureBuffer} does not operate by default on a particular {@link Scheduler}.</dd>
+     * </dl>
+     *
+     * @param capacity number of slots available in the buffer.
+     * @param onOverflow action to execute if an item needs to be buffered, but there are no available slots, {@code null} is allowed.
+     * @param overflowStrategy how should the resulting {@code Flowable} react to buffer overflows, {@code null} is not allowed.
+     * @param onDropped the {@link Consumer} to be called with the item that could not be buffered due to capacity constraints.
+     * @return the new {@code Flowable} instance
+     * @throws NullPointerException if {@code onOverflow}, {@code overflowStrategy} or {@code onDropped} is {@code null}
+     * @throws IllegalArgumentException if {@code capacity} is non-positive
+     * @see <a href="http://reactivex.io/documentation/operators/backpressure.html">ReactiveX operators documentation: backpressure operators</a>
+     * @since 3.1.7
+     */
+    @CheckReturnValue
+    @NonNull
+    @BackpressureSupport(BackpressureKind.SPECIAL)
+    @SchedulerSupport(SchedulerSupport.NONE)
+    @Experimental
+    public final Flowable<T> onBackpressureBuffer(long capacity, @Nullable Action onOverflow, @NonNull BackpressureOverflowStrategy overflowStrategy, @NonNull Consumer<? super T> onDropped) {
+        Objects.requireNonNull(overflowStrategy, "overflowStrategy is null");
+        Objects.requireNonNull(onDropped, "onDropped is null");
+        ObjectHelper.verifyPositive(capacity, "capacity");
+        return RxJavaPlugins.onAssembly(new FlowableOnBackpressureBufferStrategy<>(this, capacity, onOverflow, overflowStrategy, onDropped));
+    }
     /**
      * Drops items from the current {@code Flowable} if the downstream is not ready to receive new items (indicated
      * by a lack of {@link Subscription#request(long)} calls from it).
@@ -12755,7 +12852,46 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
     @SchedulerSupport(SchedulerSupport.NONE)
     @NonNull
     public final Flowable<T> onBackpressureLatest() {
-        return RxJavaPlugins.onAssembly(new FlowableOnBackpressureLatest<>(this));
+        return RxJavaPlugins.onAssembly(new FlowableOnBackpressureLatest<>(this, null));
+    }
+
+    /**
+     * Drops all but the latest item emitted by the current {@code Flowable} if the downstream is not ready to receive
+     * new items (indicated by a lack of {@link Subscription#request(long)} calls from it) and emits this latest
+     * item when the downstream becomes ready.
+     * <p>
+     * <img width="640" height="245" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/bp.obp.latest.v3.png" alt="">
+     * <p>
+     * Its behavior is logically equivalent to {@code blockingLatest()} with the exception that
+     * the downstream is not blocking while requesting more values.
+     * <p>
+     * Note that if the current {@code Flowable} does support backpressure, this operator ignores that capability
+     * and doesn't propagate any backpressure requests from downstream.
+     * <p>
+     * Note that due to the nature of how backpressure requests are propagated through subscribeOn/observeOn,
+     * requesting more than 1 from downstream doesn't guarantee a continuous delivery of {@code onNext} events.
+     * <dl>
+     *  <dt><b>Backpressure:</b></dt>
+     *  <dd>The operator honors backpressure from downstream and consumes the current {@code Flowable} in an unbounded
+     *  manner (i.e., not applying backpressure to it).</dd>
+     *  <dt><b>Scheduler:</b></dt>
+     *  <dd>{@code onBackpressureLatest} does not operate by default on a particular {@link Scheduler}.</dd>
+     * </dl>
+     *
+     * @param onDropped
+     *        called with the current entry when it has been replaced by a new one
+     * @throws NullPointerException if {@code onDropped} is {@code null}
+     * @return the new {@code Flowable} instance
+     * @since 3.1.7
+     */
+    @CheckReturnValue
+    @BackpressureSupport(BackpressureKind.UNBOUNDED_IN)
+    @SchedulerSupport(SchedulerSupport.NONE)
+    @NonNull
+    @Experimental
+     public final Flowable<T> onBackpressureLatest(@NonNull Consumer<? super T> onDropped) {
+        Objects.requireNonNull(onDropped, "onDropped is null");
+        return RxJavaPlugins.onAssembly(new FlowableOnBackpressureLatest<>(this, onDropped));
     }
 
     /**
@@ -20263,7 +20399,7 @@ public abstract class Flowable<@NonNull T> implements Publisher<T> {
     @BackpressureSupport(BackpressureKind.UNBOUNDED_IN)
     @SchedulerSupport(SchedulerSupport.NONE)
     @NonNull
-    public final <@NonNull R, @NonNull A> Single<R> collect(@NonNull Collector<? super T, A, R> collector) {
+    public final <@NonNull R, @Nullable A> Single<R> collect(@NonNull Collector<? super T, A, R> collector) {
         Objects.requireNonNull(collector, "collector is null");
         return RxJavaPlugins.onAssembly(new FlowableCollectWithCollectorSingle<>(this, collector));
     }

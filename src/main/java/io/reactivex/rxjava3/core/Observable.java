@@ -6668,8 +6668,10 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
     }
 
     /**
-     * Returns an {@code Observable} that emits the items emitted by the current {@code Observable}, converted to the specified
-     * type.
+     * Returns an {@code Observable} that emits the upstream items while
+     * they can be cast via {@link Class#cast(Object)} until the upstream terminates,
+     * or until the upstream signals an item which can't be cast,
+     * resulting in a {@link ClassCastException} to be signaled to the downstream.
      * <p>
      * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/cast.v3.png" alt="">
      * <dl>
@@ -6679,8 +6681,7 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
      *
      * @param <U> the output value type cast to
      * @param clazz
-     *            the target class type that {@code cast} will cast the items emitted by the current {@code Observable}
-     *            into before emitting them from the resulting {@code Observable}
+     *            the target class to use to try and cast the upstream items into
      * @return the new {@code Observable} instance
      * @throws NullPointerException if {@code clazz} is {@code null}
      * @see <a href="http://reactivex.io/documentation/operators/map.html">ReactiveX operators documentation: Map</a>
@@ -7328,7 +7329,7 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
      * other succeeds or completes, emits their success value if available or terminates immediately if
      * either the current {@code Observable} or the current inner {@code MaybeSource} fail.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapMaybe.v3.png" alt="">
      * <dl>
      *  <dt><b>Scheduler:</b></dt>
      *  <dd>{@code concatMapMaybe} does not operate by default on a particular {@link Scheduler}.</dd>
@@ -7356,7 +7357,7 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
      * other succeeds or completes, emits their success value if available or terminates immediately if
      * either the current {@code Observable} or the current inner {@code MaybeSource} fail.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapMaybe.v3.png" alt="">
      * <dl>
      *  <dt><b>Scheduler:</b></dt>
      *  <dd>{@code concatMapMaybe} does not operate by default on a particular {@link Scheduler}.</dd>
@@ -7389,7 +7390,7 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
      * other terminates, emits their success value if available and delaying all errors
      * till both the current {@code Observable} and all inner {@code MaybeSource}s terminate.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapMaybeDelayError.v3.png" alt="">
      * <dl>
      *  <dt><b>Scheduler:</b></dt>
      *  <dd>{@code concatMapMaybeDelayError} does not operate by default on a particular {@link Scheduler}.</dd>
@@ -7417,7 +7418,7 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
      * other terminates, emits their success value if available and optionally delaying all errors
      * till both the current {@code Observable} and all inner {@code MaybeSource}s terminate.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapMaybeDelayError.v3.png" alt="">
      * <dl>
      *  <dt><b>Scheduler:</b></dt>
      *  <dd>{@code concatMapMaybeDelayError} does not operate by default on a particular {@link Scheduler}.</dd>
@@ -7451,7 +7452,7 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
      * other terminates, emits their success value if available and optionally delaying all errors
      * till both the current {@code Observable} and all inner {@code MaybeSource}s terminate.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapMaybeDelayError.v3.png" alt="">
      * <dl>
      *  <dt><b>Scheduler:</b></dt>
      *  <dd>{@code concatMapMaybeDelayError} does not operate by default on a particular {@link Scheduler}.</dd>
@@ -7489,7 +7490,7 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
      * other succeeds, emits their success values or terminates immediately if
      * either the current {@code Observable} or the current inner {@code SingleSource} fail.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapSingle.v3.png" alt="">
      * <dl>
      *  <dt><b>Scheduler:</b></dt>
      *  <dd>{@code concatMapSingle} does not operate by default on a particular {@link Scheduler}.</dd>
@@ -7517,7 +7518,7 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
      * other succeeds, emits their success values or terminates immediately if
      * either the current {@code Observable} or the current inner {@code SingleSource} fail.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapSingle.v3.png" alt="">
      * <dl>
      *  <dt><b>Scheduler:</b></dt>
      *  <dd>{@code concatMapSingle} does not operate by default on a particular {@link Scheduler}.</dd>
@@ -7550,7 +7551,7 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
      * other succeeds or fails, emits their success values and delays all errors
      * till both the current {@code Observable} and all inner {@code SingleSource}s terminate.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapSingleDelayError.v3.png" alt="">
      * <dl>
      *  <dt><b>Scheduler:</b></dt>
      *  <dd>{@code concatMapSingleDelayError} does not operate by default on a particular {@link Scheduler}.</dd>
@@ -7578,7 +7579,7 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
      * other succeeds or fails, emits their success values and optionally delays all errors
      * till both the current {@code Observable} and all inner {@code SingleSource}s terminate.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapSingleDelayError.v3.png" alt="">
      * <dl>
      *  <dt><b>Scheduler:</b></dt>
      *  <dd>{@code concatMapSingleDelayError} does not operate by default on a particular {@link Scheduler}.</dd>
@@ -7612,7 +7613,7 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
      * other succeeds or fails, emits their success values and optionally delays  errors
      * till both the current {@code Observable} and all inner {@code SingleSource}s terminate.
      * <p>
-     * <img width="640" height="305" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMap.v3.png" alt="">
+     * <img width="640" height="310" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/concatMapSingleDelayError.v3.png" alt="">
      * <dl>
      *  <dt><b>Scheduler:</b></dt>
      *  <dd>{@code concatMapSingleDelayError} does not operate by default on a particular {@link Scheduler}.</dd>
@@ -16985,7 +16986,7 @@ public abstract class Observable<@NonNull T> implements ObservableSource<T> {
     @CheckReturnValue
     @SchedulerSupport(SchedulerSupport.NONE)
     @NonNull
-    public final <@NonNull R, @NonNull A> Single<R> collect(@NonNull Collector<? super T, A, R> collector) {
+    public final <@NonNull R, @Nullable A> Single<R> collect(@NonNull Collector<? super T, A, R> collector) {
         Objects.requireNonNull(collector, "collector is null");
         return RxJavaPlugins.onAssembly(new ObservableCollectWithCollectorSingle<>(this, collector));
     }
